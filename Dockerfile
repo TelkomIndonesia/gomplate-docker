@@ -8,6 +8,7 @@ FROM golang:1.20.4-bullseye AS fsnotify
 ARG FSNOTIFY_VERSION
 WORKDIR /src
 RUN git clone https://github.com/fsnotify/fsnotify \
+    && cd fsnotify \
     && git fetch --all --tags \
     && git checkout tags/v${FSNOTIFY_VERSION}
 
