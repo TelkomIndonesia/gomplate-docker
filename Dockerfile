@@ -17,12 +17,6 @@ RUN cd fsnotify/cmd/fsnotify \
 
 
 
-FROM hairyhenderson/gomplate:v${GOMPLATE_VERSION} AS gomplate
+FROM hairyhenderson/gomplate:v${GOMPLATE_VERSION}-alpine AS gomplate
 
-
-FROM scratch
-
-ARG GOMPLATE_VERSION
-
-COPY --from=fsnotify /src/fsnotify/cmd/fsnotify/fsnotify /fsnotify
-COPY --from=gomplate /gomplate /gomplate
+COPY --from=fsnotify /src/fsnotify/cmd/fsnotify/fsnotify /bin/fsnotify
