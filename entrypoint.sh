@@ -44,7 +44,11 @@ gomplate_flags() {
 
 gomplate_run() {
     echo "run gomplate"
-    for file in $(find "$TEMPLATE_DIR" -type f); do
+    for file in $(find "$TEMPLATE_DIR" -type f -or -type l); do
+        if [ -L "$file" ] && [ ! -f "$file" ]; then
+            continue
+        fi
+
         out="$(echo "$file" | sed "s|$TEMPLATE_DIR||")"
         mkdir -p $(dirname -- "$out")
         gomplate $(gomplate_flags) -f "$file" -o "$out"
